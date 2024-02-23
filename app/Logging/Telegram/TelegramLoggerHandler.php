@@ -27,7 +27,7 @@ class TelegramLoggerHandler extends AbstractProcessingHandler
 
     #[NoReturn] protected function write(\Monolog\LogRecord $record): void
     {
-        TelegramBotApi::sendMessage(
+        $result = TelegramBotApi::sendMessage(
             $this->token,
             $this->chatId,
             $record->formatted,
