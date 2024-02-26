@@ -5,9 +5,10 @@ namespace App\Models;
 use App\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Brand extends Model
+class Category extends Model
 {
     use HasFactory;
     use HasSlug;
@@ -15,7 +16,6 @@ class Brand extends Model
     protected $fillable = [
         'slug',
         'title',
-        'thumbnail',
     ];
 
     protected static function boot()
@@ -23,8 +23,8 @@ class Brand extends Model
         parent::boot();
     }
 
-    public function products(): HasMany
+    public function products(): BelongsToMany
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }
