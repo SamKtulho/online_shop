@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Brand::factory(20)->create();
-        Category::factory(30)->has(Product::factory(rand(3, 6)))->create();
+        Category::factory(30)->has(Product::factory(rand(3, 6 )))->create();
     }
 }
