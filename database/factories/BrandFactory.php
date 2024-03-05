@@ -19,8 +19,8 @@ class BrandFactory extends Factory
         return [
             'title' => $this->faker->company(),
             'thumbnail' => $this->faker->getImage(
-                base_path('/tests/Fixtures/images/products'),
-                storage_path('/app/public/images/products')
+                base_path('/tests/Fixtures/images/brands'),
+                storage_path('/app/public/images/brands')
             ),
         ];
     }
