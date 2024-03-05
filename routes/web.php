@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +17,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(AuthController::class)->group( function () {
+    Route::get('/login', 'index')->name('login');
+    Route::post('/login', 'signin')->name('signin');
 
-Route::get('/', function () {
+    Route::get('/signup', 'signup')->name('signup');
+    Route::post('/signup', 'store')->name('store');
 
-    logger()->channel('telegram')->info('ffff');
+    Route::delete('/logout', 'logout')->name('logout');
 
-    return view('welcome');
-})->name('sam');
+    Route::get('/forgot-password', 'forgotPassword')
+        ->middleware('guest')
+        ->name('password.request');
+
+    Route::post('/forgot-password', 'passwordEmail')
+        ->middleware('guest')
+        ->name('password.email');
+
+    Route::get('/reset-password/{token}', 'passwordReset')
+        ->middleware('guest')
+        ->name('password.reset');
+
+    Route::post('/reset-password', 'passwordUpdate')
+        ->middleware('guest')
+        ->name('password.update');
+
+    Route::get('/auth/github/redirect', 'githubRedirect')->name('github.redirect');
+
+    Route::get('/auth/github/callback', 'githubCallback')->name('github.callback');
+
+});
+
+Route::get('/', HomeController::class)->name('home');
+
+
