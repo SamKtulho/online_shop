@@ -19,10 +19,14 @@ use Laravel\Socialite\Facades\Socialite;
 
 Route::controller(AuthController::class)->group( function () {
     Route::get('/login', 'index')->name('login');
-    Route::post('/login', 'signin')->name('signin');
+    Route::post('/login', 'signin')
+        ->middleware('throttle:auth')
+        ->name('signin');
 
     Route::get('/signup', 'signup')->name('signup');
-    Route::post('/signup', 'store')->name('store');
+    Route::post('/signup', 'store')
+        ->middleware('throttle:auth')
+        ->name('store');
 
     Route::delete('/logout', 'logout')->name('logout');
 
