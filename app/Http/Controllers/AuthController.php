@@ -9,11 +9,11 @@ use App\Http\Requests\SignInFormRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory as FactoryAlias;
 use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Application as ApplicationAlias;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -21,12 +21,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponseAlias;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function index(): View|ApplicationAlias|FactoryAlias|Application
     {
         return view('auth.index');
     }
 
-    public function signup()
+    public function signup(): View|ApplicationAlias|FactoryAlias|Application
     {
         return view('auth.signup');
     }
@@ -65,16 +65,15 @@ class AuthController extends Controller
         auth()->logout();
 
         request()->session()->invalidate();
-
         request()->session()->regenerateToken();
 
         return redirect(route('home'));
     }
 
     /**
-     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     * @return View|ApplicationAlias|FactoryAlias|Application
      */
-    public function forgotPassword(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function forgotPassword(): View|ApplicationAlias|FactoryAlias|Application
     {
         return view('auth.forgot-password');
     }
@@ -85,17 +84,20 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['message' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+        if ($status === Password::RESET_LINK_SENT) {
+            flash()->info(__($status));
+            return back();
+        }
+
+        return back()->withErrors(['email' => __($status)]);
     }
 
-    public function passwordReset(string $token)
+    public function passwordReset(string $token): View|ApplicationAlias|FactoryAlias|Application
     {
         return view('auth.reset-password', ['token' => $token]);
     }
 
-    public function passwordUpdate(PasswordUpdateFormRequest $request)
+    public function passwordUpdate(PasswordUpdateFormRequest $request): RedirectResponse
     {
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -110,9 +112,12 @@ class AuthController extends Controller
             }
         );
 
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('message', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+        if ($status === Password::PASSWORD_RESET) {
+            flash()->info(__($status));
+            return redirect()->route('login');
+        }
+
+        return back()->withErrors(['email' => __($status)]);
     }
 
     public function githubRedirect(): RedirectResponseAlias|RedirectResponse
