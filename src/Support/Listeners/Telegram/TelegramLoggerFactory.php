@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Logging\Telegram;
+namespace Services\Logging\Telegram;
 
 use Monolog\Logger;
 

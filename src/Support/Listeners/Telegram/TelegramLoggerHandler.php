@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Logging\Telegram;
+namespace Services\Logging\Telegram;
 
-use App\Services\Telegram\TelegramBotApi;
 use JetBrains\PhpStorm\NoReturn;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use Services\Telegram\TelegramBotApi;
 
 class TelegramLoggerHandler extends AbstractProcessingHandler
 {

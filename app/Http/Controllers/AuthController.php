@@ -141,4 +141,5 @@ class AuthController extends Controller
 
         return redirect()->intended(route('home'));
     }
+
 }
