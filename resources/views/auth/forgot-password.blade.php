@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <x-forms.auth-forms title="Восстановить пароль" action="{{ route('password.email') }}" method="POST">
+    <x-forms.auth-forms title="Восстановить пароль" action="{{ route('forgot-password.handle') }}" method="POST">
         @csrf
         <x-forms.text-input
             name="email"
@@ -27,7 +27,7 @@
         <x-slot:socialAuth></x-slot:socialAuth>
         <x-slot:links>
             <div class="space-y-3 mt-5">
-                <div class="text-xxs md:text-xs"><a href="{{ route('login') }}" class="text-white hover:text-white/70 font-bold">Вспомнил пароль</a></div>
+                <div class="text-xxs md:text-xs"><a href="{{ route('login.page') }}" class="text-white hover:text-white/70 font-bold">Вспомнил пароль</a></div>
             </div>
         </x-slot:links>
 
