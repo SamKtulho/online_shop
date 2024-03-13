@@ -19,6 +19,7 @@ class FakerImageProvider extends Base
         );
 
         $path = Str::finish(Str::start(substr($pathTo, Str::position($pathTo, 'storage')), '/'), '/');
+        $path = str_replace('/app/public', '', $path);
 
         return $path . $name;
     }

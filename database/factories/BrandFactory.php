@@ -22,6 +22,8 @@ class BrandFactory extends Factory
                 base_path('/tests/Fixtures/images/brands'),
                 storage_path('/app/public/images/brands')
             ),
+            'is_on_main_page' => $this->faker->boolean(),
+            'sorting' => $this->faker->numberBetween(1, 999)
         ];
     }
 }
