@@ -21,10 +21,10 @@ class SocialiteController
         $socialiteUser = Socialite::driver($driver)->user();
 
         $user = User::query()->updateOrCreate([
-            $driver. '_id' => $socialiteUser->id,
+            $driver. '_id' => $socialiteUser->getId(),
         ], [
-            'name' => $socialiteUser->name,
-            'email' => $socialiteUser->email,
+            'name' => $socialiteUser->getName(),
+            'email' => $socialiteUser->getEmail(),
             'password' => bcrypt(str()->random(25)),
         ]);
 

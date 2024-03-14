@@ -57,9 +57,9 @@ Route::controller(ResetPasswordController::class)->group( function () {
 });
 
 Route::controller(SocialiteController::class)->group( function () {
-    Route::get('/auth/{token}/redirect', 'redirect')->name('socialite.redirect');
+    Route::get('/auth/{driver}/redirect', 'redirect')->name('socialite.redirect');
 
-    Route::get('/auth/{token}/callback', 'callback')->name('socialite.callback');
+    Route::get('/auth/{driver}/callback', 'callback')->name('socialite.callback');
 });
 
 Route::get('/', HomeController::class)->name('home');
