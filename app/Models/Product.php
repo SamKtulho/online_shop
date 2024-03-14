@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Models\HasSlug;
+use App\Traits\Models\HasThumbnail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class Product extends Model
 {
     use HasFactory;
     use HasSlug;
+    use HasThumbnail;
 
     protected $fillable = [
         'slug',
@@ -27,6 +29,11 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
+    }
+
+    protected function getThumbnailDir(): string
+    {
+        return 'products';
     }
 
     public function scopeMainPage(Builder $builder)
