@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
+use Domains\Catalog\Models\Brand;
+use Domains\Catalog\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
