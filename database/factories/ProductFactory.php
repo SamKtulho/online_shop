@@ -23,7 +23,7 @@ class ProductFactory extends Factory
                 base_path('/tests/Fixtures/images/products'),
                 storage_path('/app/public/images/products')
             ),
-            'price' => $this->faker->numberBetween(1, 100000),
+            'price' => $this->faker->numberBetween(10000, 1000000),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
             'is_on_main_page' => $this->faker->boolean(),
             'sorting' => $this->faker->numberBetween(1, 999)
